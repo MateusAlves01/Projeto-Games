@@ -1,8 +1,11 @@
 package br.com.projeto.games.service;
 
 import br.com.projeto.games.dto.GameDTO;
+import br.com.projeto.games.dto.GameListDTO;
 import br.com.projeto.games.dto.GameMiniDTO;
+import br.com.projeto.games.entities.GameList;
 import br.com.projeto.games.entities.Gamees;
+import br.com.projeto.games.repository.GameListRepository;
 import br.com.projeto.games.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,21 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class GameService {
+public class GameListService {
 
     @Autowired
-    private GameRepository gameRepository;
+    private GameListRepository gameListRepository;
+
 
     @Transactional(readOnly = true)
-    public GameDTO findById(Long id){
-        Gamees result = gameRepository.findById(id).get();
-        return new GameDTO(result);
-    }
-
-    @Transactional(readOnly = true)
-    public List<GameMiniDTO> findAll(){
-        List<Gamees> result = gameRepository.findAll();
-        List<GameMiniDTO> dto = result.stream().map(x -> new GameMiniDTO(x)).toList();
+    public List<GameListDTO> findAll(){
+        List<GameList> result = gameListRepository.findAll();
+        List<GameListDTO> dto = result.stream().map(x -> new GameListDTO(x)).toList();
         return dto;
     }
 
